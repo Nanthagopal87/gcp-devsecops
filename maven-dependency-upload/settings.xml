@@ -1,0 +1,9 @@
+<settings>
+    <servers>
+        <server>
+            <id>gcp-artifact-registry</id>
+            <username>oauth2accesstoken</username>
+            <password>YOUR_ACCESS_TOKEN</password>
+        </server>
+    </servers>
+</settings>
