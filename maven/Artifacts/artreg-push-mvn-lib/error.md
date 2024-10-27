@@ -4,6 +4,7 @@ Failed to retrieve remote metadata com.example:my-library:1.0-SNAPSHOT/maven-met
 Soln:
 
 Step 1: Try a Release Version Instead of a SNAPSHOT
+<version>1.0</version>
 
 Alternative:
 

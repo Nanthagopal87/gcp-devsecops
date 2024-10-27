@@ -1,14 +1,17 @@
 ### 1. Configure Maven to pull the dependency from Artifact Registry Maven Repo
 
-You can get this information GCP console->Artifact Repo->Select Librrary->Setup Informationn
-
+You can get this information from
+```
+GCP console->Artifact Repo->Select Librrary->Setup Information
+```
+```
 gcloud artifacts print-settings mvn \
     --project=devops-438202 \
     --repository=maven-repo \
     --location=asia-south1
-
+```
 Result:
-
+```
 <!-- Insert following snippet into your pom.xml -->
 
 <project>
@@ -46,41 +49,45 @@ Result:
     </extensions>
   </build>
 </project>
-
-
-
-
+```
 ### 2. Can  distributionmanagment and repositories  urls be different?
-ChatGPT said:
-ChatGPT
 
-Yes, the <distributionManagement> and <repositories> URLs in Maven can be different, and they serve distinct purposes:
+Yes, the distributionManagement and repositories URLs in Maven can be different, and they serve distinct purposes:
 
-    <distributionManagement>:
-        Used specifically for deployment, which means it defines where Maven should publish your built artifacts, like JARs, to a remote repository.
-        Typical in scenarios where you want to upload artifacts to a central or private repository (e.g., deploying your library or application to Artifact Registry or a Nexus/Artifactory repository).
-    <repositories>:
-        Defines locations from where Maven will download dependencies (libraries and plugins) that your project needs during the build process.
-        Useful for pointing Maven to repositories that contain dependencies not available in Maven Central, such as internal libraries or plugins stored in a company’s Artifact Registry.
+### DistributionManagement Tag:
+```
+Used specifically for deployment, which means it defines where Maven should publish your built artifacts, like JARs, to a remote repository.
 
-Example Configuration
+Typical in scenarios where you want to upload artifacts to a central or private repository (e.g., deploying your library or application to Artifact Registry or a Nexus/Artifactory repository).
+```
+
+### Repositories Tag
+ 
+```
+Defines locations from where Maven will download dependencies (libraries and plugins) that your project needs during the build process.
+
+Useful for pointing Maven to repositories that contain dependencies not available in Maven Central, such as internal libraries or plugins stored in a company’s Artifact Registry.
+```
+# Example Configuration
 
 If you need to define both, your pom.xml might look like this:
 
+```
 <repositories>     ===> Download
     <repository>
         <id>artifact-registry-repo</id>
         <url>https://asia-south1-maven.pkg.dev/my-project/dependencies-repo</url>
     </repository>
 </repositories>
-
+```
+```
 <distributionManagement>  ==> Publish
     <repository>
         <id>artifact-registry-deploy</id>
         <url>https://asia-south1-maven.pkg.dev/my-project/deploy-repo</url>
     </repository>
 </distributionManagement>
-
+```
 In this setup:
 
     - Maven will download dependencies from https://asia-south1-maven.pkg.dev/my-project/dependencies-repo.
@@ -90,14 +97,13 @@ In this setup:
     This flexibility is useful when organizations use separate repositories for managing dependencies and deploying internal builds or releases.
 
 
-
-
 ### 3. Can we download libraries/dependencies from Multiple Artifact Repo?
 
 Ans: Yes, under <repositories> tag you can add <repository> tag as much as possible
 
 Bellow is the eample of 2 repository
 
+```
 <repositories>
     <repository>
       <id>artifact-registry</id>
@@ -122,3 +128,29 @@ Bellow is the eample of 2 repository
     </repository>
     
   </repositories>
+```
+
+
+### 5. How to modify Access Token in settings.xml
+
+1) Case1: 
+```
+settings.xml
+<password>${env.GOOGLE_CLOUD_ACCESS_TOKEN}</password>
+```
+
+Soln:
+```
+export GOOGLE_CLOUD_ACCESS_TOKEN=$(gcloud auth print-access-token)
+```
+
+2) Case 2:
+```
+settings.xml
+<password>YOUR_OAUTH_ACCESS_TOKEN</password>
+```
+Soln:
+```
+ACCESS_TOKEN=$(gcloud auth print-access-token)
+sed -i "s|<password>.*</password>|<password>${ACCESS_TOKEN}</password>|" ~/.m2/settings.xml
+```
