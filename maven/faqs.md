@@ -23,6 +23,7 @@ WARNING: Your application has authenticated using end user credentials from Goog
 #
 
 ### FAQ-4
+# https://codelabs.developers.google.com/dependency-management-artifact-registry#3
 
 # Step 1: Create a Basic Maven Project
 ```
