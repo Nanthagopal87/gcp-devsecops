@@ -1,0 +1,7 @@
+org.springframework.boot:spring-boot-starter-parent:3.3.4
+org.springframework.boot:spring-boot-starter-actuator:3.3.4
+org.springframework.boot:spring-boot-starter-web:3.3.4
+org.springframework.boot:spring-boot-devtools:3.3.4
+org.projectlombok:lombok:1.18.8
+org.springframework.boot:spring-boot-starter-test:3.3.4
+

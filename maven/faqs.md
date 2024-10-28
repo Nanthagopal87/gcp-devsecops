@@ -16,9 +16,13 @@ Yes, when you execute the command to generate a Maven project using the mvn arch
 ### 6. In Local machine, access maven archetype from Artifact Registry maven repo  instead of repo.maven
 
 
+### 7. Oct 27, 2024 11:17:19 PM com.google.auth.oauth2.DefaultCredentialsProvider warnAboutProblematicCredentials
+```
+WARNING: Your application has authenticated using end user credentials from Google Cloud SDK. We recommend that most server applications use service accounts instead. If your application continues to use end user credentials from Cloud SDK, you might receive a "quota exceeded" or "API not enabled" error. For more information about service accounts, see https://cloud.google.com/docs/authentication/.
+```
 #
 
-### FAQ-3
+### FAQ-4
 
 # Step 1: Create a Basic Maven Project
 ```
@@ -52,7 +56,7 @@ a) Add Spring boot dependencies
 </dependencies>
 ```
 
-b) Add Spring Boot Plugins
+b) Add Spring Boot Plugins  (optional)
 
 ```
 <build>

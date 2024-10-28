@@ -1,15 +1,15 @@
-Write a script to download the maven dependencies from maven repo and push the dependencies to Artifact Registry maven repo
-
+### 1. Write a script to download the maven dependencies from maven repo and push the dependencies to Artifact Registry maven repo
 
 To download dependencies from the Maven repository and push them to Google Artifact Registry's Maven repository, you can use a Bash script that handles both the downloading and pushing steps. Here’s how you can do it:
-Requirements
+
+## Requirements
 
     gcloud CLI: Ensure gcloud is configured to authenticate with your Google Cloud account.
     Maven: For downloading dependencies, Maven needs to be installed.
     Environment Variables:
         Replace placeholder values with your actual GCP project ID, Artifact Registry Maven repo name, and region.
 
-Explanation
+## Explanation
 
     gcloud Setup: Configures authentication and project settings.
     Artifact Registry Repo Creation: Creates a Maven repository in Artifact Registry if it doesn’t exist.
@@ -17,7 +17,7 @@ Explanation
     Dependency Download: Uses mvn dependency:get to download each dependency.
     Dependency Upload: Deploys each dependency to the Artifact Registry repository using mvn deploy:deploy-file.
 
-Notes
+### Notes
 
     Be sure Maven’s settings.xml file is configured for Artifact Registry credentials.
     This script handles only .jar dependencies; you may need adjustments for other artifact types.
@@ -37,30 +37,26 @@ junit:junit:4.13.2
 `
 
 Each line represents a Maven artifact:
-
+```
     groupId: Typically identifies the organization or project (e.g., org.springframework).
     artifactId: Identifies the library or module (e.g., spring-core).
     version: Specifies the version of the dependency (e.g., 5.3.21).
-
+```
 Make sure to customize this list with the dependencies required by your project.
 
 
-
-
-1. Steps to Use an Access Token in Maven
+### Step 1: Steps to Use an Access Token in Maven
 
     Generate an Access Token:
         Use the gcloud command to generate an access token:
+```
+    export GOOGLE_CLOUD_ACCESS_TOKEN=$(gcloud auth print-access-token)
 
-        bash
-
-ACCESS_TOKEN=$(gcloud auth print-access-token)
-
-2. Update settings.xml with Access Token:
+```
+### Step 2: Update settings.xml with Access Token:
 
     In settings.xml, configure the server with the access token by setting the username as oauth2accesstoken and placing the ACCESS_TOKEN as the password:
-
-
+```
 <servers>
     <server>
         <id>gcp-artifact-registry</id>
@@ -69,36 +65,37 @@ ACCESS_TOKEN=$(gcloud auth print-access-token)
 
     </server>
 </servers>
-
-3. Run Maven Commands with the Access Token:
+```
+### Step 3: Run Maven Commands with the Access Token:
 
 Replace YOUR_ACCESS_TOKEN in settings.xml with the actual token. If you want to automate this step, you could use environment variables and a dynamic token replacement.
 
-4. Automate Token Replacement (optional):
-
-
+### Step 3: Automate Token Replacement (optional):
+```
 ACCESS_TOKEN=$(gcloud auth print-access-token)
 sed -i "s|<password>.*</password>|<password>${ACCESS_TOKEN}</password>|" ~/.m2/settings.xml
 
-or export GOOGLE_CLOUD_ACCESS_TOKEN=$(gcloud auth print-access-token)
-
+or 
+export GOOGLE_CLOUD_ACCESS_TOKEN=$(gcloud auth print-access-token)
+```
 Using the Access Token Dynamically
 
 Using the token this way means you won’t have to embed permanent credentials, which enhances security, especially in CI/CD pipelines where tokens can be generated per build.
 
 
-
-4. Clear Local Maven Repository Cache
+### Step 4: Clear Local Maven Repository Cache
 
 Sometimes Maven’s local repository cache can get corrupted, especially if downloads were interrupted. Deleting the specific plugin folder can force Maven to re-download it.
+```
 rm -rf ~/.m2/repository/org/apache/maven/plugins/maven-deploy-plugin
+```
 
 After removing the folder, try running the mvn deploy:deploy-file command again.
 
 These steps should help Maven locate and execute the deploy-file goal successfully. Let me know if the issue persists or if you see a specific error after these changes.
 
 
-
+### Appendix
 
 
 Processing dependency: junit:junit:4.13.2
@@ -106,8 +103,6 @@ groupId: junit
 artifactId: junit
 version: 4.13.2
 artifactPath: junit/junit/4.13.2
-
-
 
 mvn org.apache.maven.plugins:maven-deploy-plugin:3.1.1:deploy-file -f pom.xml -Dfile=downloaded-dependencies/junit/junit/4.13.2/junit-4.13.2.jar \
     -DgroupId=junit \

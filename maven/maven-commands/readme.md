@@ -76,8 +76,13 @@ mvn dependency:copy \
     -DoutputDirectory=libs2/org.projectlombok/lombok/1.18.8
 ```
 
+### 3. maven dependency tree
+```
+mvn dependency:tree
+mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:tree -Doutput=dependency-tree.txt -DoutputType=text
+```
 
-### --------
+### Appendix
 
 ### Option 1: Download spring-boot-starter with Transitive Dependencies
 
