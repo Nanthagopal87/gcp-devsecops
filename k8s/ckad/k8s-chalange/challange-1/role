@@ -1,0 +1,15 @@
+
+kubectl config set-context developer --user=martin --cluster=kubernetes
+kubectl config use-context developer
+kubectl config view
+kubectl config view --kubeconfig=my-custom-config
+
+echo "dfdf" | base64 --decode
+
+kubectl -n development apply -f pvc.yaml
+kubectl -n development apply -f pod.yaml
+kubectl -n development apply -f svc.yaml
+
+kubectl create role developer-role --verb=get,list,watch --namespace=development --resource=pods,service,persistentvolumeclaims
+
+kubectl create rolebinding developer-rolebinding --namespace=development --role=developer-role --user=martin

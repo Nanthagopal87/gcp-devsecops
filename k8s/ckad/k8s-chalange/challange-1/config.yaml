@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Config
+
+clusters:
+  - name: kubernetes
+
+contexts:
+  - name: martin@kubernetes
+    contexts:
+      cluster: 
+      user: martin 
+
+users:
+  - name: martin
+    user:
+      client-certificate: 
+      client-key: 

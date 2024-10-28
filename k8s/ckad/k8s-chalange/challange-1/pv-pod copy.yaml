@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jekyll
+  labels:
+    run: jekyll
+spec:
+  volumes:
+    - name: site
+      persistentVolumeClaim:
+        claimName: jekyll-site
+  containers:
+    - name: jekyll
+      image: gcr.io/kodekloud/customimage/jekyll-serve
+      ports:
+        - containerPort: 8080
+          name: "jekyll-serve"
+      volumeMounts:
+        - mountPath: "/site"
+          name: site
+  initContainers:
+    - name: copy-jekyll-site
+      image: gcr.io/kodekloud/customimage/jekyll
+      command: ["jekyll", "new", "/site"]
+      volumeMounts:
+        - mountPath: "/site"
+          name: site
