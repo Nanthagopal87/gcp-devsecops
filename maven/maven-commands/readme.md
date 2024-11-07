@@ -119,3 +119,30 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:3.6.0:get \
     -Dartifact=junit:junit:4.13.2 \
     -DoutputDirectory=libs/junit/junit/4.13.2
 ```
+
+# Using curl to download the artifact
+
+```
+ACCESS_TOKEN=$(gcloud auth application-default print-access-token)
+
+
+echo $ACCESS_TOKEN
+
+curl -o junit-3.8.1.jar      -H "Authorization: Bearer $ACCESS_TOKEN"      "https://asia-south1-maven.pkg.dev/devops-438202/maven-virtual-repo/junit/junit/3.8.1/junit-3.8.1.jar"
+
+or
+
+
+curl -L -v -o junit-3.8.1.jar     -H "Authorization: Bearer $ACCESS_TOKEN"     "https://asia-south1-maven.pkg.dev/devops-438202/maven-virtual-repo/junit/junit/3.8.1/junit-3.8.1.jar"
+
+```
+
+
+# Using wget
+```
+wget --header="Authorization: Bearer $ACCESS_TOKEN" \
+     -O junit-3.8.1.jar \
+     "https://asia-south1-maven.pkg.dev/devops-438202/maven-virtual-repo/junit/junit/3.8.1/junit-3.8.1.jar"
+```
+
+mvn dependency:get -Dartifact=junit:junit:3.8.1 -DrepoUrl=https://asia-south1-maven.pkg.dev/devops-438202/maven-virtual-repo
