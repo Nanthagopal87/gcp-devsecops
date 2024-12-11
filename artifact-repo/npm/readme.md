@@ -11,7 +11,7 @@ c) npm config get registry => https://asia-south1-npm.pkg.dev/devops-438202/npm-
 d) verify .npmrc file is generated in HOME directory
 
 e) Generate and set token in .npmrc
-npm set //asia-south1-npm.pkg.dev/devops-438202/npm-virtual-repo:_authToken=$(gcloud auth print-access-token)
+npm set //asia-south1-npm.pkg.dev/devops-438202/npm-virtual-repo/:_authToken=$(gcloud auth print-access-token)
 
 - verify .npmrc => cat ~/.npmrc
 ```
