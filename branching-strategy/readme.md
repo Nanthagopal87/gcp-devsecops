@@ -587,3 +587,15 @@ Develop  ------------------                 |              |
 - **Environment-Specific Branches:** Manage environments effectively using environment-specific branches like dev, uat, stage, sandbox, and prod.
 
 This visual representation aims to show the collaboration and workflows within a team context, ensuring each developer can manage their own branches and integrate their work smoothly into the main development cycle. Let me know if you need more details or further clarifications!
+
+
+### 10. An aplication having 10 microservices and runtime is decided as GKE for 2 environment prod and non-prod. We planned to have seperate mono repo for infrastructure. Need your suggestion on this to take it forward.
+
+
+An aplication having 10 microservices and runtime is decided as GKE for 2 environment prod and non-prod. We planned to have seperate mono repo for application source code, application manifests and infrastructure. 
+
+or should we keep manifests and infrastruture in a same repo?
+
+Need your suggestion on this to take it forward.
+
+I
