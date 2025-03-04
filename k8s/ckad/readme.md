@@ -1,7 +1,9 @@
 ### CKAD - Certification  
 - https://www.cncf.io/training/certification/ckad/
 - https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/
--
+
+
+
 ## Exam Details
 - Application Design and Build                        - 20%
 - Application Deployment                              - 20%
