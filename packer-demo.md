@@ -4,13 +4,13 @@
 export SERVICE_ACCOUNT_NAME="packer-builder"
 export SERVICE_ACCOUNT_DISPLAY_NAME="Packer Build Service Account"
 ```
-
+```
 1. gcloud projects add-iam-policy-binding ${PROJECT_ID}   --member="serviceAccount:${SERVICE_ACCOUNT_EMAIL}"   --role="roles/compute.instanceAdmin.v1"
 2. gcloud projects add-iam-policy-binding ${PROJECT_ID}   --member="serviceAccount:${SERVICE_ACCOUNT_EMAIL}"   --role="roles/iam.serviceAccountUser"
 3. gcloud projects add-iam-policy-binding ${PROJECT_ID}   --member="serviceAccount:${SERVICE_ACCOUNT_EMAIL}"   --role="roles/compute.osLogin"
 4. gcloud iam service-accounts add-iam-policy-binding ${PACKER_SA_EMAIL}   --role="roles/iam.serviceAccountTokenCreator"   --member="user:${USER_EMAIL}"
 5. gcloud projects add-iam-policy-binding ${PROJECT_ID}     --member="serviceAccount:${PACKER_SA_EMAIL}"     --role="roles/serviceusage.serviceUsageConsumer"
-
+```
 ```
 export PACKER_SA_EMAIL="packer-builder@prj-gke-cnch-meetup-2025-05-19.iam.gserviceaccount.com"
 export USER_EMAIL=$(gcloud config get-value account)
